@@ -192,7 +192,7 @@ function site_wp_title( $title, $sep ) {
 
     // Add a page number if necessary.
     if ( $paged >= 2 || $page >= 2 ) {
-        $title = "$title $sep " . sprintf( __( 'Page %s', 'dion' ), max( $paged, $page ) );
+        $title = "$title $sep " . sprintf( __( 'Page %s', 'star' ), max( $paged, $page ) );
     }
 
     return $title;
@@ -207,47 +207,50 @@ add_action('wp_head', 'userCustomCss');
 add_action('wp_footer', 'userCustomJs');
 add_action('wp_footer', 'googleAnalytics');
 
-add_action( 'login_enqueue_scripts', 'dionLoginLogo' );
-add_filter( 'login_headerurl',       'dionLoginLogoUrl' );
-add_filter( 'login_headertitle',     'dionLoginLogoUrlTitle' );
+add_action( 'login_enqueue_scripts', 'starLoginLogo' );
+add_filter( 'login_headerurl',       'starLoginLogoUrl' );
+add_filter( 'login_headertitle',     'starLoginLogoUrlTitle' );
 
 // WordPress login page custom logo, description and url
-function dionLoginLogo() { 
+function starLoginLogo() { 
     global $options;
     ?>
     <style type="text/css">
         body.login div#login h1 a {
             background-image: url(<?php echo $options['logo']['url']; ?>);            
             background-size: 100% 100%;
-            height: 80px;
-            padding-bottom: 30px;
-            width: 100% !important;
         }
     </style>
 <?php }
 
-function dionLoginLogoUrl() {
-    return 'http://dionworks.com';
+function starLoginLogoUrl() {
+    return 'https://github.com/tarikcayir/star-wordpress-theme';
 }
-function dionLoginLogoUrlTitle() {
-    return 'Dion Works - Works on Digital';
+function starLoginLogoUrlTitle() {
+    return 'Star';
 }
 
 function blogFavicon(){
     global $options;
 
     $favicon     = $options['favicon']['url'];
-    $favicon_57  = $options['favicon57']['url'];
-    $favicon_72  = $options['favicon72']['url'];
-    $favicon_114 = $options['favicon114']['url'];
-    $favicon_144 = $options['favicon144']['url']; ?>
+    $favicon512  = $options['favicon512']['url']; ?>
 
     <!-- Fav and touch icons -->
     <link rel="shortcut icon" href="<?php echo $favicon; ?>">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $favicon_144; ?>">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $favicon_114; ?>">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $favicon_72; ?>">
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?php echo $favicon_57; ?>">
+    <link rel="apple-touch-icon" sizes="57x57" href="<?php echo $favicon512; ?>">
+    <link rel="apple-touch-icon" sizes="60x60" href="<?php echo $favicon512; ?>">
+    <link rel="apple-touch-icon" sizes="72x72" href="<?php echo $favicon512; ?>">
+    <link rel="apple-touch-icon" sizes="76x76" href="<?php echo $favicon512; ?>">
+    <link rel="apple-touch-icon" sizes="114x114" href="<?php echo $favicon512; ?>">
+    <link rel="apple-touch-icon" sizes="120x120" href="<?php echo $favicon512; ?>">
+    <link rel="apple-touch-icon" sizes="144x144" href="<?php echo $favicon512; ?>">
+    <link rel="apple-touch-icon" sizes="152x152" href="<?php echo $favicon512; ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo $favicon512; ?>">
+    <link rel="icon" type="image/png" href="<?php echo $favicon512; ?>" sizes="32x32">
+    <link rel="icon" type="image/png" href="<?php echo $favicon512; ?>" sizes="192x192">
+    <link rel="icon" type="image/png" href="<?php echo $favicon512; ?>" sizes="96x96">
+    <link rel="icon" type="image/png" href="<?php echo $favicon512; ?>" sizes="16x16">
 <?php
 }
 
@@ -296,7 +299,7 @@ function googleAnalytics(){
 }
 
 /**
- * Dion Works Dashboard
+ * star Works Dashboard
  */
 
 // Disable all widgets and welcome panel
@@ -304,8 +307,8 @@ add_action('wp_dashboard_setup', 'disableDashboardWidgets');
 remove_action('welcome_panel','wp_welcome_panel');
 
 // Welcome panel changed
-add_action('welcome_panel','dionworksWelcomePanel');
-add_action('after_switch_theme','dionworksWelcomePanelInit');
+add_action('welcome_panel','starworksWelcomePanel');
+add_action('after_switch_theme','starworksWelcomePanelInit');
 
 // Admin custom css
 add_action('admin_head', 'adminCustomCss');
@@ -322,21 +325,22 @@ function disableDashboardWidgets() {
     remove_meta_box('dashboard_activity', 'dashboard', 'core');  
 } 
 
-function dionworksWelcomePanel() {
+function starworksWelcomePanel() {
     echo '<div class="welcome-panel-content">
             <div class="welcome-panel-content__logo">
-                <a href="http://dionworks.com?site='.get_bloginfo('url').'" title="Dion Works" target="_blank">
-                    <img src="'.DION_THEME_URL.'/img/dionworks-wp.png" alt="Dion Works"></div>  
+                <a href="https://github.com/tarikcayir/star-wordpress-theme?site='.get_bloginfo('url').'" title="Star" target="_blank">
+                    <img src="'.DION_THEME_URL.'/img/star.png" alt="Star"> 
                 </a>
+            </div> 
             <div class="welcome-panel-content__address">
-                Rumeli Cad. Itır Sok. Itır Apt.<br/>3/2 Nişantaşı / İstanbul<br/><br/>
-                0 212 571 51 22<br/><br/>
-                <a href="mailto:info@dionworks.com?Subject=Merhaba">info@dionworks.com</a><br/>
+                Örnek Mah. Örnek Sok. No:14/A<br/>Nişantaşı / İstanbul<br/><br/>
+                +90 216 123 4567<br/><br/>
+                <a href="mailto:tarikcayir@gmail.com?Subject=Merhaba">tarikcayir@gmail.com</a><br/>
             </div>
         </div>';
 }
 
-function dionworksWelcomePanelInit() {
+function starworksWelcomePanelInit() {
     global $wpdb;
     $wpdb->update($wpdb->usermeta,array('meta_value'=>1),array('meta_key'=>'show_welcome_panel'));
 }
@@ -358,6 +362,9 @@ function adminCustomCss() {
             margin: 0px auto;
             max-width: 506px;            
         }
+        .welcome-panel-content__logo a{
+            display: inline-block;
+        }
         .welcome-panel-content__logo img{
             height: auto;
             width: 100%;
@@ -378,6 +385,3 @@ function adminCustomCss() {
         }
     </style>';
 }
-
-
-
