@@ -6,6 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
-    $vendorDir . '/tgm/plugin-activation/class-tgm-plugin-activation.php',
-    $vendorDir . '/redux-framework/redux-framework.php',
+    '42b5d6e0382d5b2fad66cfc80d446c64' => $vendorDir . '/tgm/plugin-activation/class-tgm-plugin-activation.php',
+    'a19752e80cf1c1cfbd619ce88de409ff' => $vendorDir . '/redux-framework/redux-framework.php',
 );

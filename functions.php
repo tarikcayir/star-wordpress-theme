@@ -40,6 +40,7 @@ require DION_THEME_DIR.'/inc/vendor/autoload.php';
 
 //setting up the theme
 Dion\ThemeSetup::getInstance();
+Dion\DashboardSetup::getInstance();
 
 //add_filter('redux/options/dionOpt/sections', 'dynamic_section');
 
@@ -202,14 +203,7 @@ add_filter( 'wp_title', 'site_wp_title', 10, 2 );
 
 // Theme options added theme
 
-add_action('wp_head', 'blogFavicon');
-add_action('wp_head', 'userCustomCss');
-add_action('wp_footer', 'userCustomJs');
-add_action('wp_footer', 'googleAnalytics');
 
-add_action( 'login_enqueue_scripts', 'starLoginLogo' );
-add_filter( 'login_headerurl',       'starLoginLogoUrl' );
-add_filter( 'login_headertitle',     'starLoginLogoUrlTitle' );
 
 // WordPress login page custom logo, description and url
 function starLoginLogo() { 
@@ -230,73 +224,6 @@ function starLoginLogoUrlTitle() {
     return 'Star';
 }
 
-function blogFavicon(){
-    global $options;
-
-    $favicon     = $options['favicon']['url'];
-    $favicon512  = $options['favicon512']['url']; ?>
-
-    <!-- Fav and touch icons -->
-    <link rel="shortcut icon" href="<?php echo $favicon; ?>">
-    <link rel="apple-touch-icon" sizes="57x57" href="<?php echo $favicon512; ?>">
-    <link rel="apple-touch-icon" sizes="60x60" href="<?php echo $favicon512; ?>">
-    <link rel="apple-touch-icon" sizes="72x72" href="<?php echo $favicon512; ?>">
-    <link rel="apple-touch-icon" sizes="76x76" href="<?php echo $favicon512; ?>">
-    <link rel="apple-touch-icon" sizes="114x114" href="<?php echo $favicon512; ?>">
-    <link rel="apple-touch-icon" sizes="120x120" href="<?php echo $favicon512; ?>">
-    <link rel="apple-touch-icon" sizes="144x144" href="<?php echo $favicon512; ?>">
-    <link rel="apple-touch-icon" sizes="152x152" href="<?php echo $favicon512; ?>">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo $favicon512; ?>">
-    <link rel="icon" type="image/png" href="<?php echo $favicon512; ?>" sizes="32x32">
-    <link rel="icon" type="image/png" href="<?php echo $favicon512; ?>" sizes="192x192">
-    <link rel="icon" type="image/png" href="<?php echo $favicon512; ?>" sizes="96x96">
-    <link rel="icon" type="image/png" href="<?php echo $favicon512; ?>" sizes="16x16">
-<?php
-}
-
-function userCustomCss(){
-    // Prepare options
-    global $options;
-
-    // Custom CSS
-    if (isset($options['customCSS'])):?>
-        <style type="text/css">
-            <?php echo $options['customCSS']; ?>
-        </style>
-    <?php endif;
-}
-
-function userCustomJs(){
-    // Prepare options
-    global $options;
-
-    // Custom JS
-    if (isset($options['customJS'])):
-        ?>
-        <script type="text/javascript">
-            <?php echo $options['customJS']; ?>
-        </script>
-    <?php endif;
-}
-
-function googleAnalytics(){
-    global $options;
-
-    if ($options["googleAnalytics"]): ?>
-        <script type="text/javascript">
-            // Google Analytics
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', '<?php echo $options["googleAnalytics"]; ?>', 'auto');
-            ga('require', 'displayfeatures');
-            ga('send', 'pageview');
-        </script>
-    <?php
-    endif; 
-}
 
 /**
  * star Works Dashboard

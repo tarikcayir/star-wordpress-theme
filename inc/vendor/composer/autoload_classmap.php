@@ -10,6 +10,7 @@ return array(
     'Dion\\Admin\\Sections\\GeneralSettings' => $baseDir . '/inc/Dion/Admin/Sections/GeneralSettings.php',
     'Dion\\Admin\\Sections\\SocialMedia' => $baseDir . '/inc/Dion/Admin/Sections/SocialMedia.php',
     'Dion\\Ajax' => $baseDir . '/inc/Dion/Ajax.php',
+    'Dion\\DashboardSetup' => $baseDir . '/inc/Dion/DashboardSetup.php',
     'Dion\\Mail\\Content' => $baseDir . '/inc/Dion/Mail/Content.php',
     'Dion\\Mail\\Sender' => $baseDir . '/inc/Dion/Mail/Sender.php',
     'Dion\\ThemeSetup' => $baseDir . '/inc/Dion/ThemeSetup.php',
