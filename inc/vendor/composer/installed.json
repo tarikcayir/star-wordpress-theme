@@ -1,18 +1,21 @@
 [
     {
         "name": "composer/installers",
-        "version": "v1.0.18",
-        "version_normalized": "1.0.18.0",
+        "version": "v1.0.23",
+        "version_normalized": "1.0.23.0",
         "source": {
             "type": "git",
             "url": "https://github.com/composer/installers.git",
-            "reference": "74fb0a7a1a23696d9c8cc2fba5903f6711cdd067"
+            "reference": "6213d900e92647831f7a406d5c530ea1f3d4360e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/composer/installers/zipball/74fb0a7a1a23696d9c8cc2fba5903f6711cdd067",
-            "reference": "74fb0a7a1a23696d9c8cc2fba5903f6711cdd067",
+            "url": "https://api.github.com/repos/composer/installers/zipball/6213d900e92647831f7a406d5c530ea1f3d4360e",
+            "reference": "6213d900e92647831f7a406d5c530ea1f3d4360e",
             "shasum": ""
+        },
+        "require": {
+            "composer-plugin-api": "^1.0"
         },
         "replace": {
             "roundcube/plugin-installer": "*",
@@ -22,10 +25,10 @@
             "composer/composer": "1.0.*@dev",
             "phpunit/phpunit": "4.1.*"
         },
-        "time": "2014-08-18 20:00:12",
-        "type": "composer-installer",
+        "time": "2016-01-27 12:54:22",
+        "type": "composer-plugin",
         "extra": {
-            "class": "Composer\\Installers\\Installer",
+            "class": "Composer\\Installers\\Plugin",
             "branch-alias": {
                 "dev-master": "1.0-dev"
             }
@@ -55,8 +58,11 @@
             "Hurad",
             "MODX Evo",
             "OXID",
+            "SMF",
+            "Thelia",
             "WolfCMS",
             "agl",
+            "aimeos",
             "annotatecms",
             "bitrix",
             "cakephp",
@@ -64,9 +70,11 @@
             "codeigniter",
             "concrete5",
             "croogo",
+            "dokuwiki",
             "drupal",
             "elgg",
             "fuelphp",
+            "grav",
             "installer",
             "joomla",
             "kohana",
@@ -97,20 +105,20 @@
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/redux-framework/redux-framework.git",
-            "reference": "3c6f4003afdf0a45dbaf48ba5800d6734a31058d"
+            "url": "https://github.com/reduxframework/redux-framework.git",
+            "reference": "906e9060eb2066c5aa4d26e2773d166b7471ced9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/redux-framework/redux-framework/zipball/3c6f4003afdf0a45dbaf48ba5800d6734a31058d",
-            "reference": "3c6f4003afdf0a45dbaf48ba5800d6734a31058d",
+            "url": "https://api.github.com/repos/reduxframework/redux-framework/zipball/906e9060eb2066c5aa4d26e2773d166b7471ced9",
+            "reference": "906e9060eb2066c5aa4d26e2773d166b7471ced9",
             "shasum": ""
         },
         "require": {
             "composer/installers": "~1.0",
             "php": ">=5.2.0"
         },
-        "time": "2014-09-10 16:19:41",
+        "time": "2016-03-08 21:43:00",
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
@@ -140,19 +148,19 @@
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/thomasgriffin/TGM-Plugin-Activation.git",
-            "reference": "374285ef50f233453b1275912471d4ab9bd53220"
+            "url": "https://github.com/TGMPA/TGM-Plugin-Activation.git",
+            "reference": "ba41c10e821a10d3d6c3b8e468a16716bb03f125"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thomasgriffin/TGM-Plugin-Activation/zipball/374285ef50f233453b1275912471d4ab9bd53220",
-            "reference": "374285ef50f233453b1275912471d4ab9bd53220",
+            "url": "https://api.github.com/repos/TGMPA/TGM-Plugin-Activation/zipball/ba41c10e821a10d3d6c3b8e468a16716bb03f125",
+            "reference": "ba41c10e821a10d3d6c3b8e468a16716bb03f125",
             "shasum": ""
         },
         "require": {
             "php": ">=5.2"
         },
-        "time": "2014-03-17 15:23:47",
+        "time": "2015-07-16 08:59:11",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -174,6 +182,11 @@
                 "name": "Gary Jones",
                 "homepage": "https://github.com/GaryJones",
                 "role": "Developer"
+            },
+            {
+                "name": "Juliette Reinders Folmer",
+                "homepage": "https://github.com/jrfnl",
+                "role": "Developer"
             }
         ],
         "description": "TGM Plugin Activation is a PHP library that allows you to easily require or recommend plugins for your WordPress themes (and plugins).",
@@ -184,6 +197,7 @@
             "plugins",
             "theme",
             "wordpress"
-        ]
+        ],
+        "abandoned": "tgmpa/tgm-plugin-activation"
     }
 ]

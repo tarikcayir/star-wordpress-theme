@@ -18,7 +18,7 @@
 
 
         if ( !selector ) {
-            selector = $( document ).find( '.redux-container-gallery' );
+            selector = $( document ).find( '.redux-container-gallery:visible' );
         }
 
         $( selector ).each(
@@ -27,6 +27,9 @@
                 var parent = el;
                 if ( !el.hasClass( 'redux-field-container' ) ) {
                     parent = el.parents( '.redux-field-container:first' );
+                }
+                if ( parent.is( ":hidden" ) ) { // Skip hidden fields
+                    return;
                 }
                 if ( parent.hasClass( 'redux-field-init' ) ) {
                     parent.removeClass( 'redux-field-init' );
@@ -37,6 +40,13 @@
                 el.on(
                     {
                         click: function( event ) {
+                            // hide gallery settings used for posts/pages
+                            wp.media.view.Settings.Gallery = wp.media.view.Settings.Gallery.extend({
+                                template: function(view){
+                                  return;
+                                }
+                            });       
+                            
                             var current_gallery = $( this ).closest( 'fieldset' );
 
                             if ( event.currentTarget.id === 'clear-gallery' ) {

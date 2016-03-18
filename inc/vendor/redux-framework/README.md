@@ -1,6 +1,11 @@
-## Redux Options Framework [![Build Status](https://travis-ci.org/ReduxFramework/redux-framework.png?branch=master)](https://travis-ci.org/ReduxFramework/redux-framework) [![Stories in Ready](https://badge.waffle.io/ReduxFramework/redux-framework.png?label=ready)](https://waffle.io/ReduxFramework/redux-framework) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+## Redux Options Framework [![Build Status](https://travis-ci.org/reduxframework/redux-framework.png?branch=master)](https://travis-ci.org/reduxframework/redux-framework) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Slack](http://slack.redux.io/badge.svg)](http://slack.redux.io)
 
 WordPress options framework which uses the [WordPress Settings API](http://codex.wordpress.org/Settings_API "WordPress Settings API"), Custom Error/Validation Handling, Custom Field/Validation Types, and import/export functionality.
+
+## Posting Guidelines for issues and questions ##
+When using our Issue Tracker, you may ask questions where you may be a bit lost or need help understanding the documentation. If, however, you find a bug we require you to read and provide the information contained in our [Contributing Guidelines](https://github.com/ReduxFramework/redux-framework/blob/master/CONTRIBUTING.md). If you do not provide this information, we will request it before we can support you.
+
+If you are stuck in some of your own code, or need help with PHP and anything else not Redux specific, we request you purchase some [Premium Support](http://reduxframework.com/extension/premium-support/) and we will be happy to assist you. If we feel the issue is outside of our scope we will suggest you to purchase some [Premium Support](http://reduxframework.com/extension/premium-support/) in order for us to serve you.
 
 ## Kickstart Your Development ##
 
@@ -12,7 +17,7 @@ We help you create a seamless user experience for your users to demo your WordPr
 ## Documentation ##
 
 Need a little help with Redux?  Come check out our brand new documentation site at  [docs.reduxframework.com](http://docs.reduxframework.com), chock full of tutorials and examples!
- 
+
 
 ## SMOF (Simple Modified Option Users) Converter! ##
 
@@ -72,8 +77,58 @@ If you can, please donate to help support the ongoing development of Redux Frame
 
 ## Are you using Redux? ##
 
-Send me an email at ghost1227@reduxframework.com so I can add you to our user spotlight!
+Send us an email at info@reduxframework.com so we can add you to our showcase!
 
 ## Changelog ##
 
-See Changelog.md
+See [Changelog.md](https://github.com/ReduxFramework/redux-framework/blob/master/CHANGELOG.md)
+
+## Running PHP Unit tests ##
+
+The tests are built using [wordpress's make subversion repository](https://make.wordpress.org/core/handbook/automated-testing/)
+
+`/var/www/wordpress-develop` as the destination for the core test files.
+First download the wordress core tests repository, for these files.
+
+```bash
+cd /var/www
+svn co http://develop.svn.wordpress.org/trunk/ wordpress-develop
+```
+
+In the newly created `/var/www/wordpress-develop` directory rename
+`wp-tests-config-sample.php` to `wp-tests-config.php`. Now add your database
+details to the new file:
+```php
+// WARNING WARNING WARNING!
+// These tests will DROP ALL TABLES in the database with the prefix named below.
+// DO NOT use a production database or one that is shared with something else.
+
+define( 'DB_NAME', 'wordpress-tests' );
+define( 'DB_USER', 'root' );
+define( 'DB_PASSWORD', 'passowrd' );
+define( 'DB_HOST', 'localhost' );
+define( 'DB_CHARSET', 'utf8' );
+define( 'DB_COLLATE', '' );
+```
+ - <b>n.b.</b> you may need to create the database first.
+ - <b>n.b. n.b.</b> also note that the database used will be emptied on each run.
+
+Set the `WP_TESTS_DIR` environment variable so that the `redux-framework` test bootstrap file can find the wordpress core tests:
+```bash
+export WP_TESTS_DIR='/var/www/wordpress-develop/tests/phpunit/includes/'
+```
+
+You should now be able to run the `redux-framework` unit tests:
+```bash
+redux-framework$ phpunit
+Welcome to the TIVWP Test Suite
+Version: 1.0
+
+Tests folder: /var/www/wordpress-develop/tests/phpunit/includes/
+
+Installing...
+...
+Configuration read from
+redux-framework/phpunit.xml
+...
+```
