@@ -19,19 +19,32 @@ class DashboardSetup {
 	 */
 	private function __construct() {
 
-		global $options;
+		global $options, $wpdb;
 		$this->options = $options;
+		$this->wpdb = $wpdb;
 
 		// I love the Redux Framework!
+		// Default theme config.
 		add_action('wp_head', array( $this, 'faviconList') );
 		add_action('wp_head', array( $this, 'customCSS') );
 		add_action('wp_footer', array( $this, 'customJS') );
 		add_action('wp_footer', array( $this, 'googleAnalytics') );
 
 		// Load custom dasboard widget and wp-admin logo
-		/*add_action( 'login_enqueue_scripts', array( $this, 'starLoginLogo') );
+		add_action( 'login_enqueue_scripts', array( $this, 'starLoginLogo') );
 		add_filter( 'login_headerurl',       array( $this, 'starLoginLogoUrl') );
-		add_filter( 'login_headertitle',     array( $this, 'starLoginLogoUrlTitle') );*/
+		add_filter( 'login_headertitle',     array( $this, 'starLoginLogoUrlTitle') );
+
+		// Disable all widgets and welcome panel
+		add_action('wp_dashboard_setup', array( $this, 'disableDashboardWidgets') );
+		remove_action('welcome_panel', array( $this, 'wp_welcome_panel') );
+
+		// Star Welcome Dasboard
+		add_action('welcome_panel', array( $this, 'starWelcomePanel') );
+		add_action('after_switch_theme',array( $this, 'starWelcomePanelInit') );
+
+		// Admin Custom CSS
+		add_action('admin_head', array( $this, 'adminCustomCss') );
 	}
 
 
@@ -52,7 +65,7 @@ class DashboardSetup {
 	 */
 	public function faviconList() {	
 
-    	$content  ='<!-- Fav and touch icons -->\n';
+    	$content  ="<!-- Fav and touch icons -->\n";
     	$content .="<link rel='shortcut icon' href='".$this->options['favicon']['url']."'>\n";
     	$content .="<link rel='apple-touch-icon' sizes='57x57' href='".$this->options['favicon512']['url']."'>\n";
     	$content .="<link rel='apple-touch-icon' sizes='60x60' href='".$this->options['favicon512']['url']."'>\n";
@@ -69,7 +82,6 @@ class DashboardSetup {
     	$content .="<link rel='icon' type='image/png' href='".$this->options['favicon512']['url']."' sizes='16x16'>\n";
 
     	echo $content;
-
 	}
 
 
@@ -124,13 +136,124 @@ class DashboardSetup {
 	    	$content .= "ga('create', '".$this->options['googleAnalytics']."', 'auto');\n";
 	    	$content .= "ga('require', 'displayfeatures');\n";
 	    	$content .= "ga('send', 'pageview');\n";
-	    	$content .= "</script>\n";
+	    	$content .= "</script>";
 
 	    	echo $content;
 
 	    }
 	}
 
+
+	/**
+	 * WordPress login page custom logo, description and url
+	 * 
+	 * @return html
+	 */
+	public function starLoginLogo() {
+		$content  = "<style type='text/css'>";
+        $content .= "body.login div#login h1 a {";
+        $content .= "background-image: url(".$this->options['logo']['url'].") !important;";
+        $content .= "background-size: 100% 100%;";
+        $content .= "}";
+    	$content .= "</style>";
+
+    	echo $content;
+	}
+
+	/**
+	 * WP login custom url
+	 *
+	 * @return url	 
+	 */
+	public function starLoginLogoUrl() {
+    	return 'https://github.com/tarikcayir/star-wordpress-theme';
+	}
+
+	/**
+	 * WP login custom title
+	 *
+	 * @return url	 
+	 */
+	public function starLoginLogoUrlTitle() {
+    	return __('Star','star');
+	}
+
+
+	/**
+	 * Dashboard Hack!
+	 */
+	public function disableDashboardWidgets() { 
+	    remove_meta_box('dashboard_right_now', 'dashboard', 'core');  
+	    remove_meta_box('dashboard_recent_comments', 'dashboard', 'core');  
+	    remove_meta_box('dashboard_incoming_links', 'dashboard', 'core');  
+	    remove_meta_box('dashboard_plugins', 'dashboard', 'core');  
+	    remove_meta_box('dashboard_quick_press', 'dashboard', 'core');  
+	    remove_meta_box('dashboard_recent_drafts', 'dashboard', 'core');  
+	    remove_meta_box('dashboard_primary', 'dashboard', 'core');  
+	    remove_meta_box('dashboard_activity', 'dashboard', 'core');  
+	} 
+	
+	public function starWelcomePanel() {
+	    $content  = "<div class='welcome-panel-content'>\n";
+	    $content .= "<div class='welcome-panel-content__logo'\n>";
+	    $content .= "<a href='https://github.com/tarikcayir/star-wordpress-theme?site='".get_bloginfo('url')."' title='Star' target='_blank'>\n";
+	   	$content .= "<img src='".DION_THEME_URL."/img/star.png' alt='__('Star','star')'>\n";
+	   	$content .= "</a>\n";
+	   	$content .= "</div>\n";
+	    $content .= "<div class='welcome-panel-content__address'>\n";
+	    $content .= "Örnek Mah. Örnek Sok. No:14/A<br/>Nişantaşı / İstanbul<br/><br/>\n";
+	    $content .= "+90 216 123 4567<br/><br/>\n";
+	    $content .= "<a href='mailto:tarikcayir@gmail.com?Subject=Merhaba'>tarikcayir@gmail.com</a><br/>\n";
+	    $content .= "</div>\n";
+	    $content .= "</div>\n";
+
+	    echo $content;
+	}
+
+	public function starWelcomePanelInit() {	    
+		$this->wpdb->update( $this->wpdb->usermeta, array('meta_value'=>1), array('meta_key'=>'show_welcome_panel') );
+	}
+
+	public function adminCustomCss() {
+	    echo '<style>
+	        .welcome-panel-close,
+	        #dashboard-widgets-wrap{
+	            display:none;
+	        }
+
+	        .welcome-panel-content{
+	            border: none;
+	            padding: 20px 10px 30px;
+	            max-width: 100%;
+	        }
+	        .welcome-panel-content__logo{
+	            max-height: 106px;
+	            margin: 0px auto;
+	            max-width: 506px;            
+	        }
+	        .welcome-panel-content__logo a{
+	            display: inline-block;
+	        }
+	        .welcome-panel-content__logo img{
+	            height: auto;
+	            width: 100%;
+	        }
+	        .welcome-panel-content__address{
+	            color: #5c4a4a;
+	            font-size: 30px;
+	            font-weight: 600;
+	            line-height: 38px;
+	            margin-top: 30px;
+	            text-align: center;
+	        }
+	        .welcome-panel-content__address a{
+	            color: #5c4a4a;
+	        }
+	        .welcome-panel-content__address a:hover{
+	            text-decoration: underline;
+	        }
+	    </style>';
+	}
 
 }
 
